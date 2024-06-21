@@ -111,7 +111,7 @@ Public Class ViewSubmissionsForm
                         MessageBox.Show($"Submission with email '{email}' not found.")
                     End If
                 Else
-                    MessageBox.Show($"Failed to search for submission with email '{email}'. Status code: {response.StatusCode}")
+                    MessageBox.Show($"Ensure the email '{email}' is correct. Status code: {response.StatusCode}")
                 End If
             Catch ex As Exception
                 MessageBox.Show($"Error searching submission: {ex.Message}")
