@@ -20,26 +20,6 @@ SlidelyFormApp is a Windows Forms application designed to manage user submission
 
 ## Getting Started
 
-### Backend Setup
-
-1. **Clone the Repository**
-   ```sh
-   git clone https://github.com/Dhanushpriyanp/SlidelyTask_Form.git
-   cd SlidelyTask_Form/backend
-   ```
-
-2. **Initialize the Project and Install Dependencies**
-   ```sh
-   npm init -y
-   npm install express body-parser typescript ts-node @types/node @types/express
-   ```
-
-3. **Start the Server**
-   ```sh
-   npx ts-node server.ts
-   ```
-   The server will start on `http://localhost:3000`.
-
 ### Frontend (Windows Forms App) Setup
 
 1. **Open the Project in Visual Studio**
@@ -73,4 +53,4 @@ SlidelyFormApp is a Windows Forms application designed to manage user submission
 - Click the "Delete" button to remove the submission.
 
 ## Repository
-The source code is available on GitHub: [SlidelyFormApp Repository](https://github.com/Dhanushpriyanp/SlidelyTask_Form.git)
+The source code is available for backend on GitHub: [SlidelyFormApp Repository](https://github.com/Dhanushpriyanp/SlidelyTask_Form_Backend.git)
