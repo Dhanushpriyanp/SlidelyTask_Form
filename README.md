@@ -22,13 +22,18 @@ SlidelyFormApp is a Windows Forms application designed to manage user submission
 
 ### Frontend (Windows Forms App) Setup
 
-1. **Open the Project in Visual Studio**
+1. **Clone the Repository**
+   ```sh
+   git clone https://github.com/Dhanushpriyanp/SlidelyTask_Form.git
+   cd SlidelyTask_Form
+   ```
+2. **Open the Project in Visual Studio**
    - Open Visual Studio and load the solution file (`SlidelyFormApp.sln`).
 
-2. **Build the Solution**
+3. **Build the Solution**
    - Go to `Build` -> `Build Solution` or press `Ctrl+Shift+B`.
 
-3. **Run the Application**
+4. **Run the Application**
    - Press `F5` to run the application.
 
 ## Usage
