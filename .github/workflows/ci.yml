@@ -14,12 +14,24 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Simulate Approve PRs
-        run: |
-          echo "Simulating approval of PRs: ${{ github.event.inputs.pr_list }}"
-          for pr_number in $(echo ${{ github.event.inputs.pr_list }} | tr ',' ' '); do
-            echo "Approving PR #$pr_number"
-          done
+      - name: Approve PRs
+        uses: actions/github-script@v3
+        with:
+          script: |
+            const prList = ${{ github.event.inputs.pr_list }}.split(',');
+            for (const prNumber of prList) {
+              await github.pulls.createReview({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: parseInt(prNumber),
+                event: 'APPROVE'
+              });
+              await github.pulls.merge({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: parseInt(prNumber)
+              });
+            }
 
   build_pr:
     needs: approve_pr
