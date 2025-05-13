@@ -17,6 +17,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Debug Token Permissions
+        run: |
+          echo "Debugging token permissions..."
+          curl -H "Authorization: token ${{ github.event.inputs.github_token }}" -H "Accept: application/vnd.github.v3+json" https://api.github.com/user
+
       - name: Approve PRs
         uses: actions/github-script@v3
         env:
@@ -25,12 +30,14 @@ jobs:
           script: |
             const prList = "${{ github.event.inputs.pr_list }}".split(',');
             for (const prNumber of prList) {
+              console.log(`Approving PR #${prNumber.trim()}`);
               await github.pulls.createReview({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 pull_number: parseInt(prNumber.trim()),
                 event: 'APPROVE'
               });
+              console.log(`Merging PR #${prNumber.trim()}`);
               await github.pulls.merge({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
