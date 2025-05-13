@@ -16,6 +16,8 @@ jobs:
 
       - name: Approve PRs
         uses: actions/github-script@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           script: |
             const prList = "${{ github.event.inputs.pr_list }}".split(',');
