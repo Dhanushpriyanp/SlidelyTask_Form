@@ -9,7 +9,6 @@ SlidelyFormApp is a Windows Forms application designed to manage user submission
 - **Search Submissions**: Find specific submissions using keywords.
 - **Edit Submissions**: Update details of existing submissions.
 - **Delete Submissions**: Remove submissions from the database.
-- **Styled Navigation**: Rounded, styled buttons for navigation.
 
 ## Prerequisites
 - Visual Studio 2019 or later
