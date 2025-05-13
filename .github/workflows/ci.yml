@@ -22,7 +22,7 @@ jobs:
           echo "Debugging token permissions..."
           curl -H "Authorization: token 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" -H "Accept: application/vnd.github.v3+json" https://api.github.com/user
 
-      - name: Approve PRs
+      - name: Merge PRs
         uses: actions/github-script@v3
         env:
           GITHUB_TOKEN: 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
@@ -30,14 +30,7 @@ jobs:
           script: |
             const prList = "${{ github.event.inputs.pr_list }}".split(',');
             for (const prNumber of prList) {
-              console.log(`Approving PR #${prNumber.trim()}`);
               try {
-                await github.pulls.createReview({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  pull_number: parseInt(prNumber.trim()),
-                  event: 'APPROVE'
-                });
                 console.log(`Merging PR #${prNumber.trim()}`);
                 await github.pulls.merge({
                   owner: context.repo.owner,
@@ -45,7 +38,7 @@ jobs:
                   pull_number: parseInt(prNumber.trim())
                 });
               } catch (error) {
-                console.error(`Error processing PR #${prNumber.trim()}:`, error);
+                console.error(`Error merging PR #${prNumber.trim()}:`, error);
               }
             }
 
