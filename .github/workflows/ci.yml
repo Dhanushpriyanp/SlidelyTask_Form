@@ -1,0 +1,53 @@
+name: Test Auto Approve, Build, and Update
+
+on:
+  workflow_dispatch:
+    inputs:
+      pr_list:
+        description: 'List of PR numbers to approve and build (comma-separated)'
+        required: true
+
+jobs:
+  approve_pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Simulate Approve PRs
+        run: |
+          echo "Simulating approval of PRs: ${{ github.event.inputs.pr_list }}"
+          for pr_number in $(echo ${{ github.event.inputs.pr_list }} | tr ',' ' '); do
+            echo "Approving PR #$pr_number"
+          done
+
+  build_pr:
+    needs: approve_pr
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        pr_number: ${{ fromJSON(format('["{0}"]', github.event.inputs.pr_list)) }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Simulate Build PR
+        run: |
+          echo "Simulating build for PR #${{ matrix.pr_number }}"
+          echo "Building Docker image with tag: my-repo:${{ matrix.pr_number }}"
+          echo "Pushing Docker image: my-repo:${{ matrix.pr_number }}"
+
+  update_repo:
+    needs: build_pr
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        pr_number: ${{ fromJSON(format('["{0}"]', github.event.inputs.pr_list)) }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Simulate Update Image Tag
+        run: |
+          echo "Simulating update of image tag for PR #${{ matrix.pr_number }}"
+          echo "Updating image tag to: my-repo:${{ matrix.pr_number }}"
