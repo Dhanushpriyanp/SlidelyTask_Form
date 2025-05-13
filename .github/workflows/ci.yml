@@ -6,6 +6,9 @@ on:
       pr_list:
         description: 'List of PR numbers to approve and build (comma-separated)'
         required: true
+      github_token:
+        description: 'GitHub token with necessary permissions'
+        required: true
 
 jobs:
   approve_pr:
@@ -17,7 +20,7 @@ jobs:
       - name: Approve PRs
         uses: actions/github-script@v3
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ github.event.inputs.github_token }}
         with:
           script: |
             const prList = "${{ github.event.inputs.pr_list }}".split(',');
